@@ -1,16 +1,16 @@
-package teste;
+package cliente;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class Cliente{
+public class ClienteInterface{
     public static void main(String[] args) throws IOException, UnknownHostException{
         Socket socket = null;
         InputStreamReader isr = null;
         OutputStreamWriter osr = null;
         BufferedReader br = null;
         BufferedWriter bw = null;
-        InetAddress ip = InetAddress.getByName("localhost");
         Scanner in = null;
 
         while (true){
@@ -24,19 +24,15 @@ public class Cliente{
                 
                 while (true){
                     System.out.println("Digite uma acao: ");
-                    int op = in.nextInt();
-
-                    if (op < 0)
-                        System.out.println("Erro COMANDO INVALIDO");
+                    String op = in.next();
                     
-                    if (op == 0){
+                    if (op.equals("sair")){
                         System.out.println("Encerrando o sistema...");
                         in.close();
                         socket.close();
                     }  
                     
-                    else if (op == 1){
-                        System.out.println("Digite alguma mensagem: ");
+                    else if (op.equals("enviar_msg")){
                         String mensagem = in.nextLine();
                         mensagem = mensagem.replaceFirst(" ", "");
                         
@@ -47,6 +43,9 @@ public class Cliente{
                         System.out.println("Resposta do server: " + br.readLine());
                         System.out.println("Resposta do server: " + br.readLine());
                     }
+
+                    else
+                        System.out.println("Erro COMANDO INVALIDO");
                 }
             }
 
